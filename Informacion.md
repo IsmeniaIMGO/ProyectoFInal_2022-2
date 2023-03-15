@@ -32,3 +32,7 @@ para iniciar un proceso de pago y envío del producto comprado, teniendo en cuen
 Para iniciar el proceso de pago, el anunciante se debe comunicar con el cliente y llevar a cabo el proceso de pago por fuera
 del sistema y al culminar debe indicar que se finaliza el anuncio con el pago exitoso y hacer llegar el producto según lo que
 haya acordado con su comprador.
+
+
+
+
