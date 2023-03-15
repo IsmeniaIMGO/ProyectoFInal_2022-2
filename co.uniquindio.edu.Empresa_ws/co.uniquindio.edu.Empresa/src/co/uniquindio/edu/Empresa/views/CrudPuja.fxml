@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="465.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.edu.Empresa.controllers.CrudPujaController">
+   <children>
+      <TabPane fx:id="tabPanePP" layoutX="45.0" layoutY="27.0" prefHeight="452.0" prefWidth="476.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="tabCrearPuja" text="Crear Puja">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="578.0">
+                     <children>
+                        <VBox layoutX="435.0" layoutY="83.0" prefHeight="219.0" prefWidth="109.0" spacing="22.0">
+                           <children>
+                              <Button fx:id="btnCrearPuja" layoutX="354.0" layoutY="70.0" mnemonicParsing="false" onAction="#CrearPuja" prefHeight="32.0" prefWidth="176.0" style="-fx-background-color: #2C5175;" text="Crear" textFill="WHITE">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="btnActualizarPuja" layoutX="354.0" layoutY="120.0" mnemonicParsing="false" onAction="#ActualizarPuja" prefHeight="32.0" prefWidth="143.0" style="-fx-background-color: #2C5175;" text="Actualizar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="btnEliminarPuja" layoutX="353.0" layoutY="175.0" mnemonicParsing="false" onAction="#EliminarPuja" prefHeight="32.0" prefWidth="167.0" style="-fx-background-color: #2C5175;" text="Eliminar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="btnBuscarPuja" mnemonicParsing="false" onAction="#buscarPuja" prefHeight="32.0" prefWidth="197.0" style="-fx-background-color: #2C5175;" text="Buscar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Button>
+                           </children>
+                        </VBox>
+                        <Label layoutX="238.0" layoutY="14.0" text="CREAR PUJA">
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="18.0" />
+                           </font></Label>
+                        <Button fx:id="btnVolverAnuncioCrud" alignment="CENTER" layoutX="188.0" layoutY="364.0" mnemonicParsing="false" onAction="#volverAnuncioC" prefHeight="32.0" prefWidth="195.0" style="-fx-background-color: #000000;" text="volver a anuncio" textFill="WHITE">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="18.0" />
+                           </font>
+                        </Button>
+                        <GridPane layoutX="24.0" layoutY="67.0" prefHeight="247.0" prefWidth="351.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="121.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="240.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Id:">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Label>
+                              <TextField fx:id="txtIdPuja" prefHeight="31.0" prefWidth="235.0" GridPane.columnIndex="1" />
+                              <Label text="Anuncio:" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Label>
+                              <ComboBox fx:id="cboxAnuncioCrud" prefHeight="28.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label prefHeight="20.0" prefWidth="154.0" text="Valor a pujar:" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Label>
+                              <TextField fx:id="txtValorApujar" prefHeight="32.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Usuario:" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="18.0" />
+                                 </font></Label>
+                              <ComboBox fx:id="cboxUsuarios" prefHeight="27.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                        <Separator layoutX="24.0" layoutY="52.0" prefHeight="9.0" prefWidth="523.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabVerPuja" text="Ver Pujas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="578.0">
+                     <children>
+                        <TableView fx:id="tblPujasVista" layoutX="44.0" layoutY="105.0" prefHeight="259.0" prefWidth="492.0">
+                           <columns>
+                              <TableColumn fx:id="col_IdPujaVista" prefWidth="62.0" text="Id" />
+                              <TableColumn fx:id="col_ValorApujarVista" minWidth="0.0" prefWidth="173.0" text="Valor a pujar" />
+                              <TableColumn fx:id="col_UsuarioVista" minWidth="0.0" prefWidth="256.0" text="Usuario" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="btnExportarPujas" layoutX="390.0" layoutY="380.0" mnemonicParsing="false" onAction="#exportarPujas" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #ADD8E6;" text="Exportar Pujas">
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="18.0" />
+                           </font></Button>
+                        <ComboBox fx:id="cboxAnuncioVista" layoutX="44.0" layoutY="57.0" prefHeight="29.0" prefWidth="370.0" />
+                        <Label layoutX="44.0" layoutY="26.0" prefHeight="27.0" prefWidth="398.0" text="Selecione el anuncio para ver su lista de pujas:">
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="18.0" />
+                           </font></Label>
+                        <Button fx:id="btnVolverAnuncioVista" alignment="CENTER" layoutX="44.0" layoutY="380.0" mnemonicParsing="false" onAction="#volverAnuncioA" prefHeight="34.0" prefWidth="155.0" style="-fx-background-color: #000000;" text="volver a anuncio" textFill="WHITE">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnBuscarListaPujas" layoutX="437.0" layoutY="52.0" mnemonicParsing="false" onAction="#buscarListaPujas" prefHeight="34.0" prefWidth="100.0" style="-fx-background-color: #2C5175 #2C5175;" text="Buscar" textFill="WHITE">
+                           <font>
+                              <Font name="Franklin Gothic Demi" size="18.0" />
+                           </font></Button>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

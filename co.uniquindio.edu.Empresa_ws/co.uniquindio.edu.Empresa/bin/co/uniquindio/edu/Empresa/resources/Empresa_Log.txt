@@ -1,0 +1,32 @@
+nov 21, 2022 2:34:28 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: crearUsuario,usuario creado,2022-11-21
+nov 21, 2022 2:53:40 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: iniciarSesion,Usuario: 1-Marcela,2022-11-21
+nov 21, 2022 3:46:47 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: crearUsuario,usuario creado,2022-11-21
+nov 21, 2022 3:47:04 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: iniciarSesion,Usuario: 3-Robin,2022-11-21
+nov 21, 2022 3:48:33 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: Creo un articulo,Usuario: 3-Robin,2022-11-21
+nov 21, 2022 3:49:21 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: Creo un anuncio,Usuario: 3-Robin,2022-11-21
+nov 21, 2022 3:49:51 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: Exportar: ,Un archivo Anuncios ha sido exportado por el usuario: Robin,2022-11-21
+nov 21, 2022 3:50:23 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: Cerro sesion,Usuario: 3-Robin,2022-11-21
+nov 21, 2022 3:50:42 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: iniciarSesion,Usuario: 2-Manuel,2022-11-21
+nov 21, 2022 3:51:24 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: crearPuja,Puja creada,2022-11-21
+nov 21, 2022 3:51:24 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: Creo una puja,Usuario: 2-Manuel,2022-11-21
+nov 21, 2022 3:51:51 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: crearPuja,Puja creada,2022-11-21
+nov 21, 2022 3:51:51 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: Creo una puja,Usuario: 2-Manuel,2022-11-21
+nov 21, 2022 3:52:33 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: actualizarPuja,Puja actualizada,2022-11-21
+nov 21, 2022 3:53:00 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: iniciarSesion,Usuario: 3-Robin,2022-11-21
+nov 21, 2022 3:53:51 PM co.uniquindio.edu.Empresa.persistence.ArchivoUtil guardarRegistroLog
+INFORMACIÓN: Exportar: ,Un archivo Pujas ha sido exportado por el usuario: Robin,2022-11-21

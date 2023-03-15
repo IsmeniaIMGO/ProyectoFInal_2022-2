@@ -1,0 +1,2 @@
+1,Marcela,21,ANUNCIANTE
+2,Manuel,21,COMPRADOR

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_111" class="java.beans.XMLDecoder">
+ <object class="co.uniquindio.edu.Empresa.model.Empresa" id="Empresa0">
+  <void property="listaUsuarios">
+   <void method="add">
+    <object class="co.uniquindio.edu.Empresa.model.Usuario">
+     <void property="edad">
+      <int>21</int>
+     </void>
+     <void property="id">
+      <string>1</string>
+     </void>
+     <void property="nombre">
+      <string>Marcela</string>
+     </void>
+     <void property="tipoUsuario">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>co.uniquindio.edu.Empresa.model.TipoUsuario</class>
+       <string>ANUNCIANTE</string>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="co.uniquindio.edu.Empresa.model.Usuario">
+     <void property="edad">
+      <int>21</int>
+     </void>
+     <void property="id">
+      <string>2</string>
+     </void>
+     <void property="nombre">
+      <string>Manuel</string>
+     </void>
+     <void property="tipoUsuario">
+      <object class="java.lang.Enum" method="valueOf">
+       <class>co.uniquindio.edu.Empresa.model.TipoUsuario</class>
+       <string>COMPRADOR</string>
+      </object>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

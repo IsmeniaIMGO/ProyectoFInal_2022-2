@@ -1,0 +1,625 @@
+package co.uniquindio.edu.Empresa.controllers;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import co.uniquindio.edu.Empresa.application.Aplicacion;
+import co.uniquindio.edu.Empresa.exceptions.ArticuloException;
+import co.uniquindio.edu.Empresa.model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+
+public class CrudArticuloAnuncioController {
+	
+	//atributos propios
+	Singleton singleton = Singleton.getInstance();
+	Aplicacion aplicacion;
+	Empresa empresa = singleton.empresa;
+	
+	//Metodo set de aplicacion
+	public void setAplicacion(Aplicacion aplicacion){
+		this.aplicacion = aplicacion;
+		singleton.setAplicacion(aplicacion);
+	}
+	
+	//instancia de una lista para la tableview
+	private ObservableList<Articulo> vistaListaArticulos = FXCollections.observableArrayList();
+	private ObservableList<TipoArticulo> vistaListaTipoArticulo = FXCollections.observableArrayList();
+	private ObservableList<Usuario> vistaListaUsuarios = FXCollections.observableArrayList();
+	private ObservableList<Anuncio> vistaListaAnuncios = FXCollections.observableArrayList();
+	
+    @FXML
+    private TableColumn<Anuncio, String> col_UsuarioVista;
+
+    @FXML
+    private TableColumn<Articulo, TipoArticulo> colTipoArticulo;
+
+    @FXML
+    private TableColumn<Anuncio, String> col_idVista;
+
+    @FXML
+    private ChoiceBox<Articulo> cboxArticulo;
+
+    @FXML
+    private DatePicker dtpFechaFinal;
+
+    @FXML
+    private TableColumn<Anuncio, Double> col_ValorInicialVista;
+
+    @FXML
+    private TableView<Articulo> tblArticulos;
+
+    @FXML
+    private Button btnVerPujas;
+
+    @FXML
+    private TableColumn<Anuncio, String> col_FechaFinVista;
+
+    @FXML
+    private Tab tabArticulo;
+
+    @FXML
+    private Button btnIrAPuja;
+
+    @FXML
+    private Button btnEliminarAnuncio;
+
+    @FXML
+    private TableColumn<Anuncio, String> col_FechaInicioVista;
+
+    @FXML
+    private Tab tabAnuncio;
+
+    @FXML
+    private TextField txtIdAnuncio;
+
+    @FXML
+    private TableColumn<Anuncio, String> colUsuarioAnuncio;
+
+    @FXML
+    private TabPane tabCrudAA;
+
+    @FXML
+    private TextField txtDescripcionArticulo;
+
+    @FXML
+    private TableColumn<Anuncio, String> colFechaInicioAnuncio;
+
+    @FXML
+    private TableColumn<Anuncio, String> col_ArticuloVista;
+
+    @FXML
+    private Button btnCrearArticulo;
+
+    @FXML
+    private Button btnActualizarArticulo;
+
+    @FXML
+    private TableView<Anuncio> tblAnuncio;
+
+    @FXML
+    private ChoiceBox<Usuario> cboxUsuarios;
+
+    @FXML
+    private Button btnCrearAnuncio;
+
+    @FXML
+    private TableView<Anuncio> tblAnuncioVista;
+
+    @FXML
+    private Button btnEliminarArticulo;
+
+    @FXML
+    private Button btnActualizarAnuncio;
+
+    @FXML
+    private ChoiceBox<TipoArticulo> cboxTipoArticulo;
+
+    @FXML
+    private TableColumn<Anuncio, String> colArticuloAnuncio;
+
+    @FXML
+    private TableColumn<Anuncio, String> colNombreArtiuclo;
+
+    @FXML
+    private TextField txtIdArticulo;
+
+    @FXML
+    private TextField txtNombreArticulo;
+
+    @FXML
+    private Button btnExportarAnuncios;
+
+    @FXML
+    private TableColumn<Anuncio, String> colValorInicialAnuncio;
+
+    @FXML
+    private TextField txtValorInicial;
+
+    @FXML
+    private Button btnCerrarSesionC;
+
+    @FXML
+    private TableColumn<Articulo, String> col_IdArticulo;
+
+    @FXML
+    private DatePicker dtpFechaInicio;
+
+    @FXML
+    private TableColumn<Articulo, String> colDescripcionArticulo;
+
+    @FXML
+    private TableColumn<Anuncio, String> colFechaFinAnuncio;
+
+    @FXML
+    private Button btnCerrarSesionA;
+
+    @FXML
+    private TableColumn<Anuncio, String> col_IdAnuncio;
+    
+    @FXML
+    private Tab tabAnuncioVista;
+
+    @FXML
+    private Button btnMensajes;
+    
+    @FXML
+    private ImageView vistaImagen;
+    
+    @FXML
+    private Button btnSubirImagen;
+    
+    @FXML
+    void CrearArticulo(ActionEvent event) throws Exception {
+    	
+    	String usser = (String) JOptionPane.showInputDialog(null, "Ingrese su Usuario","Verificacion de Usuario", 1, null, null, "");
+		String contrasena = (String) JOptionPane.showInputDialog(null, "Ingrese su Contraseña","Verificacion de Usuario", 1, null, null, "");
+    	
+		if (singleton.verificarAnunciante(usser, contrasena)) {
+    		crearArticulo();
+        	observarDatos();
+        	limpiarCampos();
+        	singleton.guardarRegistroLog("Usuario: "+usser+"-"+contrasena, 1, "Creo un articulo");
+		}else {
+			singleton.mostrarMensaje("Error", "Error al crear articulo", "", AlertType.WARNING);
+		}
+    }
+
+	@FXML
+    void ActualizarArticulo(ActionEvent event) throws Exception {
+    	actualizarArticulo();
+    	observarDatos();
+    	limpiarCampos();
+    }
+
+	@FXML
+    void EliminarArticulo(ActionEvent event) throws ArticuloException, IOException {
+		
+    	String usser = (String) JOptionPane.showInputDialog(null, "Ingrese su Usuario","Verificacion de Usuario", 1, null, null, "");
+		String contrasena = (String) JOptionPane.showInputDialog(null, "Ingrese su Contraseña","Verificacion de Usuario", 1, null, null, "");
+    	
+		if (singleton.verificarAnunciante(usser, contrasena)) {
+			eliminarArticulo();
+	    	observarDatos();
+	    	limpiarCampos();
+	    	singleton.guardarRegistroLog("Usuario: "+usser+"-"+contrasena, 1, "Elimino un articulo");
+		}else {
+			singleton.mostrarMensaje("Error", "Error al eliminar articulo", "", AlertType.WARNING);
+		}
+
+    }
+
+    @FXML
+    void CrearAnuncio(ActionEvent event) throws Exception{
+    	String usser = (String) JOptionPane.showInputDialog(null, "Ingrese su Usuario","Verificacion de Usuario", 1, null, null, "");
+		String contrasena = (String) JOptionPane.showInputDialog(null, "Ingrese su Contraseña","Verificacion de Usuario", 1, null, null, "");
+    	
+		if (singleton.verificarAnunciante(usser, contrasena)) {
+	    	crearAnuncio();
+	    	observarDatos();
+	    	limpiarCampos();
+	    	singleton.guardarRegistroLog("Usuario: "+usser+"-"+contrasena, 1, "Creo un anuncio");
+		}else {
+			singleton.mostrarMensaje("Error", "Error al crear anuncio", "", AlertType.WARNING);
+		}
+
+    }
+
+	@FXML
+    void ActualizarAnuncio(ActionEvent event) throws Exception {
+		actualizarAnuncio();
+		observarDatos();
+		limpiarCampos();
+    }
+
+	@FXML
+    void EliminarAnuncio(ActionEvent event) throws Exception {
+    	String usser = (String) JOptionPane.showInputDialog(null, "Ingrese su Usuario","Verificacion de Usuario", 1, null, null, "");
+		String contrasena = (String) JOptionPane.showInputDialog(null, "Ingrese su Contraseña","Verificacion de Usuario", 1, null, null, "");
+    	
+		if (singleton.verificarAnunciante(usser, contrasena)) {
+			eliminarAnuncio();
+			observarDatos();
+			limpiarCampos();
+	    	singleton.guardarRegistroLog("Usuario: "+usser+"-"+contrasena, 1, "Elimino un anuncio");
+	    	singleton.guardarAnuncios(singleton.listaAnuncios());
+	}else {
+		singleton.mostrarMensaje("Error", "Error al eliminar un anuncio", "", AlertType.WARNING);
+	}
+
+    }
+
+    @FXML
+    void CrearPuja(ActionEvent event) {
+    	
+    	singleton.MostrarCrudPujaC("/co/uniquindio/edu/Empresa/views/CrudPuja.fxml"); 	
+    }
+
+    @FXML
+    void VerPujas(ActionEvent event) {
+    	singleton.MostrarCrudPujaA("/co/uniquindio/edu/Empresa/views/CrudPuja.fxml");
+    }
+
+    @FXML
+    void exportarAnuncios(ActionEvent event) throws Exception {
+    	String usser = (String) JOptionPane.showInputDialog(null, "Ingrese su Usuario","Verificacion de Usuario", 1, null, null, "");
+		String contrasena = (String) JOptionPane.showInputDialog(null, "Ingrese su Contraseña","Verificacion de Usuario", 1, null, null, "");
+    	
+		if (singleton.verificarAnunciante(usser, contrasena)) {
+	    	singleton.exportarAnuncios();
+	    	singleton.mostrarMensaje("Exportar", "", "El archivo: Anuncios, ha sido guardado con exito", AlertType.CONFIRMATION);
+			singleton.guardarRegistroLog("Un archivo Anuncios ha sido exportado por el usuario: "+ contrasena, 1, "Exportar: ");
+		}else {
+			singleton.mostrarMensaje("Error", "Error al exportar", "", AlertType.WARNING);
+	}
+
+    }
+    
+    @FXML
+    void cerrarSesionA(ActionEvent event){
+    	String usser = (String) JOptionPane.showInputDialog(null, "Ingrese su Usuario","Verificacion de Usuario", 1, null, null, "");
+		String contrasena = (String) JOptionPane.showInputDialog(null, "Ingrese su Contraseña","Verificacion de Usuario", 1, null, null, "");
+    	
+		if (singleton.verificarAnunciante(usser, contrasena)) {
+			singleton.mostrarLogin("/co/uniquindio/edu/Empresa/views/Login.fxml");
+			singleton.guardarRegistroLog("Usuario: "+usser+"-"+contrasena, 1, "Cerro sesion");
+		}else {
+			singleton.mostrarMensaje("Error", "Error al cerrar sesion", "", AlertType.WARNING);
+	}
+
+    }
+
+    @FXML
+    void cerrarSesionC(ActionEvent event) {
+    	String usser = (String) JOptionPane.showInputDialog(null, "Ingrese su Usuario","Verificacion de Usuario", 1, null, null, "");
+		String contrasena = (String) JOptionPane.showInputDialog(null, "Ingrese su Contraseña","Verificacion de Usuario", 1, null, null, "");
+    	
+		if (singleton.verificarComprador(usser, contrasena)) {
+			singleton.mostrarLogin("/co/uniquindio/edu/Empresa/views/Login.fxml");
+		}else {
+			singleton.mostrarMensaje("Error", "Error al cerrar sesion", "", AlertType.WARNING);
+	}
+
+    }
+
+    @FXML
+    void verMensajes(ActionEvent event) {
+    	singleton.mostrarMensajes("/co/uniquindio/edu/Empresa/views/InformarGanador.fxml");
+    }
+    
+    @FXML
+    void subirImagen(ActionEvent event) {
+    	subirImagen();
+    }
+
+	@FXML // This method is called by the FXMLLoader when initialization is complete
+    void initialize() throws IOException {
+    	limpiarCampos();
+		seleccionarElemento();
+		seleccionarElemento2();
+    	observarDatos();
+    	singleton.guardarAnuncios(singleton.listaAnuncios());
+    }
+    
+    //METODOS GET DE ALGUNOS BOTONES Y TABS PARA INHABILITAR SEGUN EL TIPO DEUSUARIO
+	public TabPane getTabCrudAA() {
+		return tabCrudAA;
+	}
+
+	public Tab getTabArticulo() {
+		return tabArticulo;
+	}
+
+	public Tab getTabAnuncio() {
+		return tabAnuncio;
+	}
+
+	public Button getBtnCrearAnuncio() {
+		return btnCrearAnuncio;
+	}
+
+	public Button getBtnEliminarAnuncio() {
+		return btnEliminarAnuncio;
+	}
+
+	public Button getBtnActualizarAnuncio() {
+		return btnActualizarAnuncio;
+	}
+
+	public Button getBtnIrAPuja() {
+		return btnIrAPuja;
+	}
+
+	public Button getBtnVerPujas() {
+		return btnVerPujas;
+	}
+
+	
+	//-------------------------------METODOS CRUD------------------------------
+    /**
+     * Metodo que me permite crear un articulo obteniendo la informacion
+     * de los campos de texto y con la logica creada en la clase empresa
+     * @throws Exception
+     */
+	private void crearArticulo() throws Exception {
+    	String id = this.txtIdArticulo.getText();
+    	String nombre = this.txtNombreArticulo.getText();
+    	String descripcion = this.txtDescripcionArticulo.getText();
+    	TipoArticulo tipoArticulo = cboxTipoArticulo.getValue();
+    	
+    	singleton.crearArticulo(id, nombre,descripcion, tipoArticulo);
+    	singleton.guardarArticulos(singleton.listaArticulos());
+    	singleton.mostrarMensaje("Operacion exitosa", "Articulo creado", "", AlertType.INFORMATION);
+	}
+
+	/**
+	 * metodo que me permite actualizar un Articulo ya creado, obteniendo
+	 * la informacion de los campos de texto y con la logica de la clase Empresa
+	 * @throws Exception
+	 */
+    private void actualizarArticulo() throws Exception {
+    	String id = this.txtIdArticulo.getText();
+    	String nuevoNombre = this.txtNombreArticulo.getText();
+    	String nuevaDescripcion = this.txtDescripcionArticulo.getText();
+    	TipoArticulo nuevoTipoArticulo = cboxTipoArticulo.getValue();
+
+    	singleton.actualizarArticulo(id, nuevoNombre, nuevaDescripcion, nuevoTipoArticulo);
+    	singleton.guardarArticulos(singleton.listaArticulos());
+    	singleton.mostrarMensaje("Operacion exitosa", "Articulo actualizado", "operacion exitosa", AlertType.INFORMATION);
+    	singleton.guardarRegistroLog("articulo actualizado", 1, "actualizarArticulo");
+  	}
+
+    /**
+     * metodo que me permite eliminar un Articulo ya creado,
+	 * obteniendo su id y con la logica de la clase Empresa
+     * @throws ArticuloException
+     * @throws IOException 
+     */
+    private void eliminarArticulo() throws ArticuloException, IOException {
+    	String id = txtIdArticulo.getText();
+	    singleton.eliminarArticulo(id);
+	    singleton.guardarArticulos(singleton.listaArticulos());
+	    singleton.guardarRegistroLog("articulo eliminado", 1, "eliminarArticulo");
+		
+	}
+
+    /**
+     *Metodo que me permite crear un Anuncio obteniendo la informacion
+     * de los campos de texto y con la logica creada en la clase empresa
+     * @throws Exception
+     */
+    private void crearAnuncio() throws Exception {
+		String id = txtIdAnuncio.getText();
+		Usuario usuario = cboxUsuarios.getValue();
+		String fechaInicio = dtpFechaInicio.getValue().toString();
+		String fechaFin = dtpFechaFinal.getValue().toString();
+		Articulo articulo = cboxArticulo.getValue();
+		Double valorInicial = Double.parseDouble(txtValorInicial.getText());
+		
+		ArrayList<Puja> listaPujas = new ArrayList<Puja>();
+		
+		singleton.crearAnuncio(id, fechaInicio, fechaFin, valorInicial, articulo, usuario, listaPujas);
+    	singleton.mostrarMensaje("Operacion exitosa", "Anuncio creado", "operacion exitosa", AlertType.INFORMATION);
+    	
+    	singleton.guardarAnuncios(singleton.listaAnuncios());
+	}
+    
+    /**
+     * metodo que me permite actualizar un Anuncio ya creado, obteniendo
+	 * la informacion de los campos de texto y con la logica de la clase Empresa
+     * @throws IOException 
+     */
+    private void actualizarAnuncio() throws IOException {
+    	String id = txtIdAnuncio.getText();
+    	Usuario nuevoUsuario = cboxUsuarios.getValue();
+    	String nuevaFechaInicio = dtpFechaInicio.getValue().toString();
+		String nuevaFechaFin = dtpFechaFinal.getValue().toString();
+		Articulo nuevoArticulo = cboxArticulo.getValue();
+		Double nuevoValorInicial = Double.parseDouble(txtValorInicial.getText());
+		
+		singleton.actualizarAnuncio(id, nuevaFechaInicio, nuevaFechaFin, nuevoValorInicial, nuevoArticulo, nuevoUsuario);
+		singleton.guardarAnuncios(singleton.listaAnuncios());
+    	singleton.mostrarMensaje("Operacion exitosa", "Articulo actualizado", "operacion exitosa", AlertType.INFORMATION);
+    	singleton.guardarRegistroLog("Anuncio actualizado", 1, "actualizarAnuncio");
+	}
+    
+    
+    /**
+     *metodo que me permite eliminar un usuario ya creado,
+	 * obteniendo su id y con la logica de la clase Empresa
+     * @throws Exception
+     */
+    private void eliminarAnuncio() throws Exception{
+    	String id = txtIdAnuncio.getText();
+    	singleton.eliminarAnuncio(id);
+    	
+    	
+    }
+
+    
+    //--------------------------------Otros Metodos------------------------------
+
+	/**
+	 * Metodo que me permite colocar los valores 
+     * de una lista en la tabla que el usuario va a observar
+	 */
+    private void observarDatos() {
+		//para tab: crear Articulo
+    	col_IdArticulo.setCellValueFactory(new PropertyValueFactory<>("id"));
+    	colNombreArtiuclo.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+    	colDescripcionArticulo.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+    	colTipoArticulo.setCellValueFactory(new PropertyValueFactory<>("tipoArticulo"));
+    	
+    	vistaListaTipoArticulo.setAll(TipoArticulo.TECNOLOGIA, TipoArticulo.HOGAR, TipoArticulo.DEPORTES, TipoArticulo.VEHICULOS, TipoArticulo.BIENRAIZ);
+    	cboxTipoArticulo.setItems(vistaListaTipoArticulo);
+    	
+    	vistaListaArticulos.setAll(singleton.listaArticulos());
+    	tblArticulos.setItems(vistaListaArticulos);
+    	
+    	//para tab: crear Anuncio
+    	col_IdAnuncio.setCellValueFactory(new PropertyValueFactory<>("id"));
+    	colUsuarioAnuncio.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+    	colArticuloAnuncio.setCellValueFactory(new PropertyValueFactory<>("articulo"));
+    	colValorInicialAnuncio.setCellValueFactory(new PropertyValueFactory<>("valorInicial"));
+    	colFechaInicioAnuncio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+    	colFechaFinAnuncio.setCellValueFactory(new PropertyValueFactory<>("fechaFinal"));
+    	
+    	cboxArticulo.setItems(vistaListaArticulos);
+    	
+    	vistaListaUsuarios.setAll(singleton.listaUsuarios());
+    	cboxUsuarios.setItems(vistaListaUsuarios);
+    	
+    	vistaListaAnuncios.setAll(singleton.listaAnuncios());
+    	tblAnuncio.setItems(vistaListaAnuncios);
+    	
+    	//para tab: anuncios
+    	
+    	col_idVista.setCellValueFactory(new PropertyValueFactory<>("id"));
+    	col_UsuarioVista.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+    	col_ArticuloVista.setCellValueFactory(new PropertyValueFactory<>("articulo"));
+    	col_ValorInicialVista.setCellValueFactory(new PropertyValueFactory<>("valorInicial"));
+    	col_FechaInicioVista.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+    	col_FechaFinVista.setCellValueFactory(new PropertyValueFactory<>("fechaFinal"));
+    	
+    	tblAnuncioVista.setItems(vistaListaAnuncios);
+	}
+	
+	/**
+	 *metodo que me permite seleccionar un elemnto de la tabla
+	 * y devolver la informacion a los campos de texto
+	 */
+	private void seleccionarElemento() {
+		//para tabla de creararticulos
+		tblArticulos.getSelectionModel().selectedItemProperty().addListener(
+    			new ChangeListener<Articulo>() {
+    				@Override
+    				public void changed(ObservableValue<? extends Articulo> arg0, Articulo oldValue, Articulo articuloSeleccionado ){
+    					if (articuloSeleccionado != null) {
+    						txtIdArticulo.setText(articuloSeleccionado.getId());
+    						txtNombreArticulo.setText(articuloSeleccionado.getNombre());
+    						txtDescripcionArticulo.setText(articuloSeleccionado.getDescripcion());
+    						cboxTipoArticulo.setValue(articuloSeleccionado.getTipoArticulo());
+    					}
+    				}
+    			}		
+    	);	
+		
+		
+	}
+	/**
+	 *metodo que me permite seleccionar un elemnto de la tabla
+	 * y devolver la informacion a los campos de texto
+	 */
+	private void seleccionarElemento2() {
+		//para tabla de crear anuncio
+				tblAnuncio.getSelectionModel().selectedItemProperty().addListener(
+					new ChangeListener<Anuncio>() {
+						@Override
+						public void changed (ObservableValue<? extends Anuncio> arg0, Anuncio oldValue, Anuncio anuncioSeleccionado ){
+							if (anuncioSeleccionado != null) {
+								txtIdAnuncio.setText(anuncioSeleccionado.getId());
+								txtValorInicial.setText(String.valueOf(anuncioSeleccionado.getValorInicial()));
+								cboxUsuarios.setValue(anuncioSeleccionado.getUsuario());
+								cboxArticulo.setValue(anuncioSeleccionado.getArticulo());
+								dtpFechaInicio.setValue(LocalDate.parse(anuncioSeleccionado.getFechaInicio()));
+								dtpFechaFinal.setValue(LocalDate.parse(anuncioSeleccionado.getFechaFinal()));
+							}
+						}
+					}
+				);	
+	}
+	/**
+	 * metodod que me permite limpiar los campos de texto
+	 * y asignar informacion para el usuario
+	 */
+	private void limpiarCampos() {
+		//para crear articulo
+		txtIdArticulo.setText("");
+    	txtIdArticulo.setPromptText("Ingrese un nuevo Id");
+    	txtNombreArticulo.setText("");
+    	txtNombreArticulo.setPromptText("Ingrese un nombre");
+    	txtDescripcionArticulo.setText("");
+    	txtDescripcionArticulo.setPromptText("Ingrese la descripcion");
+    	cboxTipoArticulo.setValue(null);
+		
+    	tblArticulos.getSelectionModel().clearSelection();
+    	
+    	//para crear anuncio
+    	txtIdAnuncio.setText("");
+    	txtIdAnuncio.setPromptText("Ingrese un Id");
+    	txtValorInicial.setText("");
+    	txtValorInicial.setPromptText("Escriba el valor inicial");
+    	cboxUsuarios.setValue(null);
+    	cboxArticulo.setValue(null);
+    	dtpFechaInicio.setValue(null);
+    	dtpFechaFinal.setValue(null);
+    	
+    	tblAnuncio.getSelectionModel().clearSelection();
+	}
+	
+	/**
+	 * Metodo que me permite subir una imagen para el articulo
+	 */
+	private void subirImagen() {
+    	Stage primaryStage = null;
+    	try {
+    		FileChooser fileChooser = new FileChooser();
+    		fileChooser.setTitle("Buscar imagen");
+    		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Archivos imagen", "*.png", ".jpg"));
+    		File selectedFile = fileChooser.showOpenDialog(primaryStage);
+    		if(selectedFile != null) {
+    			FileInputStream input = new FileInputStream(selectedFile);
+    			Image imagen = new Image(input);
+    			vistaImagen.setImage(imagen);
+    		}
+    		
+    		
+    	}catch (Exception e) {
+    		System.out.println(e.getMessage());
+		}
+			
+	}
+
+}

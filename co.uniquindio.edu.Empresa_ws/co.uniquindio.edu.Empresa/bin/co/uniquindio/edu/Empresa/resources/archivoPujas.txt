@@ -1,0 +1,2 @@
+1,30.009,Manuel,Sofa, tipoArticulo: HOGAR
+2,32.099,Manuel,Sofa, tipoArticulo: HOGAR
