@@ -34,3 +34,5 @@ culminar debe indicar que se finaliza el anuncio con el pago exitoso y hacer lle
 haya acordado con su comprador.
 
 ![requisitos](https://github.com/IsmeniaIMGO/ProyectoFinal_2022-2/blob/main/informacion/requisitos.jpg)
+
+![diagrama UML](https://github.com/IsmeniaIMGO/ProyectoFinal_2022-2/blob/main/modelo/UML%20Empresa%20v2.jpg)
